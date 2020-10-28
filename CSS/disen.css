@@ -30,6 +30,13 @@
 .container{
     margin-left: 40px;
 }
+.containers{
+    margin-left: 40px;
+}
+
+.con{
+    margin-top: 40px;
+}
 h1{
     color: #fff;
     font-family: "Berlin Sans FB";
@@ -37,4 +44,11 @@ h1{
     font-size: 60px;
     transform: translateY(100%);
     margin-bottom: 80px;
+}
+.fondo{
+    background: url("../img/beer2.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
