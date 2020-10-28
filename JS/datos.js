@@ -22,10 +22,10 @@ function obtenerDatos() {
 
                let resultado = document.querySelector('#resultado');
 
-
                 for(i=0; i<=dat.length ; i++){
                     console.log(i);
-                    resultado.innerHTML += `<td>${dat[i].name}</td>` +
+                    resultado.innerHTML +=
+                        `<td>${dat[i].name}</td>` +
                         `<td>${dat[i].brewery_type}</td>` +
                         `<td>${dat[i].street}</td>` +
                         `<td>${dat[i].city}</td>` +
@@ -34,13 +34,9 @@ function obtenerDatos() {
                         `<td>${dat[i].longitude}</td>` +
                         `<td>${dat[i].latitude}</td>` +
                         `<td>${dat[i].website_url}</td>`
-
                 };
-
-
                 /* for(let item of dat){
                  }*/
-
             }
 
         }
