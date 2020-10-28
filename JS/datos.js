@@ -30,7 +30,10 @@ function obtenerDatos() {
                         `<td>${dat[i].street}</td>` +
                         `<td>${dat[i].city}</td>` +
                         `<td>${dat[i].state}</td>` +
-                        `<td>${dat[i].postalCode}</td>`
+                        `<td>${dat[i].country}</td>` +
+                        `<td>${dat[i].longitude}</td>` +
+                        `<td>${dat[i].latitude}</td>` +
+                        `<td>${dat[i].website_url}</td>`
 
                 };
 
