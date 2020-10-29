@@ -1,0 +1,209 @@
+PRÁCTICA DE LABORATORIO
+CARRERA: Computación ASIGNATURA: Plataformas Web
+
+NRO. PRÁCTICA: (^1) TÍTULO PRÁCTICA: Desarrollo de una aplicación web utilizando la API de la base
+
+de datos de películas OMDB
+OBJETIVO
+• Conocer las arquitecturas y patrones arquitectónicos web para el diseño de aplicaciones web
+• Interactuar con servicios web de plataformas en la nube ALCANZADO:
+ACTIVIDADES DESARROLLADAS
+1. API
+El api con la que se desarrollo el sistema web fue a través de una API publica y no se necesito una llave de acceso. La
+siguiente API se encuentra en el siguiente link de acceso. https://www.openbrewerydb.org/documentation/03-search.
+Esta librería cuenta con datos las cervezas artesanales de USA, por lo general las mas famosas de esa región. Esta tiene
+datos de nombre, el tipo de empresa, ciudad, estado, provincia, longitud, latitud y su sitio web.
+2. Crear un repositorio en GitHub con el nombre “Practica00 – Consumo de APIs en la nube”
+https://github.com/Elwilliko/Apis.git.
+3. Generar el informe de la práctica con el desarrollo de cada uno de los puntos descritos anteriormente.
+• La aplicación Web debe permitir buscar la información a través de un nombre.
+Como se puede observar se ingreso el nombre de una de las cervezas como es Adovedale y se obtuvo el nombre
+de la cerveza y en otra fila se encontró por el nombre de la ciudad de origen; a su vez nos presentó los respectivos
+datos de acuerdo lo buscado
+CONSEJO ACADÉMICO Aprobación: 2016 / 04 / 06
+Formato: Guía de Práctica de Laboratorio / Talleres / Centros de Simulación
+Código Index:
+Colocar datos
+CLICK
+Como se puede apreciar se creó algunas clases para de esta manera colocar en un CSS para darle ubicación tanto a nuestro texto, buscador y el botón denominado CLICK para su respectiva búsqueda.
+Nombre	Tipo de Cerveceria	Calle	Ciudad	Estado	País	Longitud	Latitud	Sitio WebEn la siguiente sección se crea la tabla con sus respectivos campos a presentar de acuerdo a los datos de nuestra API, Además tenemos un ID=” resultado”, que será llamado posteriormente para llenar el campo del cuadro respectivo dato. El siguiente código lo veremos en JS.
+
+
+Para finalizar la sección de nuestro index tenemos los respectivos botones que se nos pide para la respectiva paginación (JS).
+Código CSS:
+@keyframes movimiento {
+from{
+background-position: bottom left;
+}
+to{
+background-position: top right;
+}
+
+}
+
+CONSEJO ACADÉMICO Aprobación: 2016 / 04 / 06
+Formato: Guía de Práctica de Laboratorio / Talleres / Centros de Simulación
+Lo que se puede recalcar sobre nuestro dato CSS es el movimiento que le damos a la imagen de nuestro título, ya que
+este se encuentra como una portada y ella se mueve levemente en forma vertical. Gracias al método @keyframes se logro
+incorporar este estilo.
+Código JS
+var el = document .querySelector('#boton');
+
+if ( el ) {
+el .addEventListener('click', function(){
+obtenerDatos();
+});
+}
+
+como se puede observar en esta parte del código se llama a nuestro botón de nuestro archivo index y además de los
+datos que obtendrá la función obtenerDatos al hacer click en nuestro botón.
+function obtenerDatos() {
+variable = document .getElementById("texto").value;
+
+if(variable != ""){
+let url = 'https://api.openbrewerydb.org/breweries/search?query='+ variable;
+const api = new XMLHttpRequest ();
+Ahora creamos la función de obtenerDatos la cual se encuentra la variable texto que es nuestro dato a percibir. Mas abajo
+se puede observar como es ingresada a nuestros datos y en la palabra variable será donde se guardara los respectivo
+datos de la búsqueda.
+
+CONSEJO ACADÉMICO Aprobación: 2016 / 04 / 06
+Formato: Guía de Práctica de Laboratorio / Talleres / Centros de Simulación
+api.onreadystatechange = function () {
+if(this.status== 200 && this.readyState == 4 ){
+let dat = JSON .parse(this.responseText);
+console .log(dat.length);
+
+aquí añadimos algunos datos de nuestra sección de búsqueda de la API, y JSON que nos permite tener una estructura;
+permitiendo de esta manera la transferencia de datos por medio de la pagina web; ideal para cadena de datos.
+paginas_totales = dat.length;
+paginas_totales /= 5 ;
+console .log(paginas_totales + '<--');
+let parteEntera = parseInt(paginas_totales);
+let parteDecimal = 5 *( paginas_totales - parteEntera)
+paginas_totales = Math .ceil(paginas_totales);
+console .log(dat);
+
+como siguiente punto tenemos la paginación que se va incorporando en esta sección de nuestros datos.
+Creamos una variable paginas_totales la cual cuanta con el tamaño de nuestros datos.
+La variable paginas_totales: se dividirá nuestra tabla de acuerdo al número de datos que deseemos mostrar, en mi caso
+es 5.
+Parte entera y parte decimal se usa para definir cual de estos datos se puede colocar.
+Para la parte decimal se utiliza una formula la cual es multiplicar 5 *(paginas totales – parte entera).
+De esta manera se podrá tener los datos totales y estos sean igual al paginas totales.
+let paginas = [] // Numero de Paginas.
+let items = [] // Items por pagina.
+let cantidaItems = 0 ;
+for (let i = 0 ; i < parteEntera; i++) {
+console .log('Pagina actual -->' + i);
+En el siguiente punto se observa como se crea dos cadenas como son las paginas y los respectivos ítems y otro dato que
+inicia en cero. La parteEntera dentro de nuestro for nos permitirá llegar a la página de acuerdo a los datos obtenidos a
+mostrar.
+
+let resultado = document .querySelector('#resultado');
+for (let j = i* 5 ; j < (i+ 1 )* 5 ; j++) {
+if(i >= 1 ){
+let contador = (i* 5 )+j;
+}
+items.push(dat[j]);
+cantidaItems ++;
+}
+paginas.push(items);
+items = [];
+}
+Aquí ya se usa nuestro dato que teníamos en el index denominado resultado el cual manda los datos a esa sección y de
+acuerdo a la cantidad de datos dados, ahora se observa que dentro de dos for se compara los datos tanto en la variable j como en
+i
+
+CONSEJO ACADÉMICO Aprobación: 2016 / 04 / 06
+Formato: Guía de Práctica de Laboratorio / Talleres / Centros de Simulación
+globalThis.paginas = paginas;
+globalThis.indexActual = 0 ;
+Btn();
+mostrarResultados();
+console .log("<--------------------->");
+}
+
+las variables globales son creadas para que estas sean mandados a nuestra tabla y nos de la información respectiva para que
+muestre los datos a saber. Además, se hace un llamado a nuestro método de botones y los resultados que deseemos mostrar
+
+function Resultados(){
+let items = globalThis.paginas[globalThis.indexActual];
+console .log(items);
+let detalles = '';
+document .getElementById("resultado").innerHTML = detalles;
+for (let i = 0 ; i < items.length; i++) {
+// console.log(items[i].idDrink);
+detalles += <tr>+
+<td>${items[i].name}</td> +
+<td>${items[i].brewery_type}</td> +
+<td>${items[i].street}</td> +
+<td>${items[i].city}</td> +
+<td>${items[i].state}</td> +
+<td>${items[i].country}</td> +
+<td>${items[i].longitude}</td> +
+<td>${items[i].latitude}</td> +
+<td>${items[i].website_url}</td>+
+
+</tr>;
+
+}
+document .getElementById("resultado").innerHTML = detalles;
+
+}
+
+Ahora vemos como nuestra variable global es enviada a nuestro método principal para que presente los datos obtenidos.
+
+La variable resultada mandara a nuestra tabla que esta en el index de acuerdo a los datos que se presentaran al solicitar. Estos
+datos serán buscados de acuerdo a lo requerido.
+
+function Btn() {
+
+if(globalThis.indexActual+ 1 == globalThis.paginas.length){
+document .getElementById('adelante').disabled=true;
+document .getElementById('atras').disabled=false;
+}else if(globalThis.indexActual== 0 ){
+document .getElementById('atras').disabled=true;
+document .getElementById('adelante').disabled=false;
+}
+
+}
+
+CONSEJO ACADÉMICO Aprobación: 2016 / 04 / 06
+Formato: Guía de Práctica de Laboratorio / Talleres / Centros de Simulación
+Aquí se puede observar el metodo del botón el cual mediante la variable global será comprobada si los datos solicitados existe o
+no en nuestro array.
+
+function Avance() {
+Btn();
+globalThis.indexActual ++;
+console .log('<---------------------->');
+Resultados();
+}
+
+function Retrazo() {
+Btn();
+globalThis.indexActual --;
+console .log("---------");
+Resultados();
+}
+
+finalmente, la función Adelante y Retrazo hará un llamamiento a los botones que se encuentran en nuestro index y a la vez
+mandado a nuestra función principal. En la sección del index se puede observar somo se hace el respectivo llamamiento a estos
+datos.
+
+Resultados: con 10 resultados separados por 2 secciones
+
+CONSEJO ACADÉMICO Aprobación: 2016 / 04 / 06
+Formato: Guía de Práctica de Laboratorio / Talleres / Centros de Simulación
+5.
+6.
+N.
+RESULTADO(S) OBTENIDO(S):
+• Identifica las diferentes arquitecturas Web para el desarrollo de aplicaciones
+CONCLUSIONES:
+• Los estudiantes podrán identificar arquitecturas web utilizando servicios en la nube. Así como también,
+podrán consumir APIs y manipular objetos JSON.
+RECOMENDACIONES:
+• Aplicar conceptos de interacción humano máquina para el desarrollo de la GUI.
+Nombre de estudiante: William Chabla
