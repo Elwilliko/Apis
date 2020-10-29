@@ -29,8 +29,8 @@ function obtenerDatos() {
                 paginas_totales = Math.ceil(paginas_totales);
                 console.log(dat);
 
-                let paginas = [] // Numero de Paginas.
-                let items = [] // Items por pagina.
+                let paginas = []
+                let items = []
                 let cantidaItems = 0;
                 for (let i = 0; i < parteEntera; i++) {
                     console.log('Pagina actual -->' + i);
@@ -54,7 +54,7 @@ function obtenerDatos() {
                 globalThis.paginas = paginas;
                 globalThis.indexActual = 0;
                 Btn();
-                mostrarResultados();
+                Resultados();
                 console.log("<--------------------->");
             }
 
@@ -65,7 +65,7 @@ function obtenerDatos() {
     }
 
 }
-function mostrarResultados(){
+function Resultados(){
     let items = globalThis.paginas[globalThis.indexActual];
     console.log(items);
     let detalles = '';
@@ -106,14 +106,14 @@ function Avance() {
     Btn();
     globalThis.indexActual ++;
     console.log('<---------------------->');
-    mostrarResultados();
+    Resultados();
 }
 
 function Retrazo() {
     Btn();
     globalThis.indexActual --;
     console.log("---------");
-    mostrarResultados();
+    Resultados();
 }
 
 
